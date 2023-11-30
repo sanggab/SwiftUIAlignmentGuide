@@ -46,7 +46,6 @@ struct ContentView: View {
 
             Spacer()
 
-
             HStack(spacing: 15) {
                 Button {
                     withAnimation(.easeInOut(duration: 1)) {
