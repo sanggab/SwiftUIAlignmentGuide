@@ -76,6 +76,8 @@ public struct ContentView: View {
                 
             }
         }
+        .padding(20)
+        .overlay(Rectangle().stroke(lineWidth: 1))
     }
     
 }
