@@ -7,175 +7,75 @@
 
 import SwiftUI
 
-struct ContentView: View {
+/// Custom Alignment를 쓰는 이유는 VStack는 HorizentalAlignment(수평정렬)
+/// HStack는 VerticalAlignment(수직정렬)만 사용 가능하기에 나는 다른 정렬도 사용하고 싶다면
+/// 커스텀으로 구현해서 하면 된다.
+
+extension VerticalAlignment {
     
-    @State private var position = 0
-    
-    var body: some View {
+    private enum KaPPaTextAlignment: AlignmentID {
         
-        VStack {
+        /// Custom Alignment인 KappaTextAlignment는 기본값이 d[.bottom] 즉
+        /// VerticalAlignment의 기본 축인 --- 에서 bottom은 View의 높이 이므로
+        /// 축 위에 딱 붙는 형태가 될 것 이다.
+        static func defaultValue(in d: ViewDimensions) -> CGFloat {
+            return d[.bottom]
+        }
+    }
+    
+    public static let kappaCustomAlignment = VerticalAlignment(KaPPaTextAlignment.self)
+}
 
-            Spacer()
-
-            ZStack {
-
-                Text("심상갑")
-                    .padding(.all, 10)
-                    .background(.blue)
-                    .opacity(0.5)
-                    .cornerRadius(10)
-                    .alignmentGuide(HorizontalAlignment.center) { d in
-                        self.gabHorPosition(d: d)
-                    }
-                    .alignmentGuide(VerticalAlignment.center) { d in
-                        self.gabVerPosition(d: d)
-                    }
-
-                Text("카파")
-                    .padding(.all, 10)
-                    .background(.yellow)
-                    .opacity(0.5)
-                    .cornerRadius(10)
-                    .alignmentGuide(HorizontalAlignment.center) { d in
-                        self.kappaHorPosition(d: d)
-                    }
-                    .alignmentGuide(VerticalAlignment.center) { d in
-                        self.kappaVerPosition(d: d)
-                    }
-            }
-
-            Spacer()
-
-            HStack(spacing: 15) {
-                Button {
-                    withAnimation(.easeInOut(duration: 1)) {
-                        self.position = 1
-                    }
-                } label: {
+public struct ContentView: View {
+    
+    @State private var selectedIndex: Int = 0
+    
+    private var dayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    
+    public var body: some View {
+        
+        
+        HStack(alignment: .kappaCustomAlignment) {
+            
+            /// Image의 alignment은 암시적으로 부모 HStack의 alignment kappaCustomAlignment를 따라간다
+            ///  그러면 이놈의 alignment는 defaultValue은 d[.bottom]
+            ///  즉 축 위로 붙는 형태
+            Image(systemName: "arrow.right.circle.fill")
+                .foregroundColor(.blue)
+            
+            VStack(alignment: .leading, spacing: 20) {
+                
+                ForEach(dayList.indices, id: \.self) { idx in
                     
-                    Text("심상갑 카파")
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 10)
-                        .foregroundColor(.white)
-                        .background(Color.gray)
-                        .cornerRadius(8)
-                }
+                    if selectedIndex == idx {
+                        /// 그러면 이제 화살표를 Text랑 정렬로 맞추고 싶으면 어떻게 해야할까
+                        /// 일단 내가 선택한 쪽으로 화살표가 가야하니까 선택한 index를 @State로 관측한다.
+                        /// 그리고 나서 일치한 경우 alignment를 내가 커스텀한 kappaCustomAlignment를 수정해주면 Image는 암시적으로 kappaCustomAlignment를 따르고 있으므로
+                        /// Text의 VerticalAlignment 축을 기준으로 배치해주면 이제 완성된다.
+                        Text(dayList[selectedIndex])
+                            .alignmentGuide(VerticalAlignment.kappaCustomAlignment) { d in
+                                let top = d[.top]
+                                let bottom = d[.bottom]
 
-                Button {
-                    withAnimation(.easeInOut(duration: 1)) {
-                        self.position = 2
-                    }
-                } label: {
-                    
-                    
-                    Text("카파 심상갑")
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 10)
-                        .foregroundColor(.white)
-                        .background(Color.gray)
-                        .cornerRadius(8)
-                }
+                                print("top -> \(top)")
+                                print("bottom -> \(bottom)")
 
-                Button {
-                    withAnimation(.easeInOut(duration: 1)) {
-                        self.position = 3
+                                return d[.bottom]
+                            }
+                        
+                    } else {
+                        Text(dayList[idx])
+                            .onTapGesture {
+                                withAnimation {
+                                    selectedIndex = idx
+                                }
+                            }
                     }
-                } label: {
-                    
-                    Text("심상갑 \n카파")
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 10)
-                        .foregroundColor(.white)
-                        .background(Color.gray)
-                        .cornerRadius(8)
                     
                 }
-
-
-                Button {
-                    withAnimation(.easeInOut(duration: 1)) {
-                        self.position = 4
-                    }
-                } label: {
-                    
-                    Text("카파 \n심상갑")
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 10)
-                        .foregroundColor(.white)
-                        .background(Color.gray)
-                        .cornerRadius(8)
-                    
-                }
-
-                Button {
-                    withAnimation(.easeInOut(duration: 1)) {
-                        self.position = 0
-                    }
-                } label: {
-                    
-                    Text("리셋")
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 10)
-                        .foregroundColor(.white)
-                        .background(Color.gray)
-                        .cornerRadius(8)
-
-                }
-
+                
             }
         }
-    }
-    
-    func gabHorPosition(d: ViewDimensions) -> CGFloat {
-        
-        switch position {
-        case 1:
-            return d[.trailing] + 10
-        case 2:
-            return d[.leading] - 10
-        default:
-            return d[HorizontalAlignment.center]
-        }
-        
-    }
-    
-    func gabVerPosition(d: ViewDimensions) -> CGFloat {
-        
-        switch position {
-        case 3:
-            return d[.bottom] + 10
-        case 4:
-            return d[.top] - 10
-        default:
-            return d[VerticalAlignment.center]
-        }
-
-    }
-    
-    func kappaHorPosition(d: ViewDimensions) -> CGFloat {
-        
-        switch position {
-        case 1:
-            return d[.leading] - 10
-        case 2:
-            return d[.trailing] + 10
-        default:
-            return d[HorizontalAlignment.center]
-        }
-        
-    }
-    
-    func kappaVerPosition(d: ViewDimensions) -> CGFloat {
-        
-        switch position {
-        case 3:
-            return d[.top] - 10
-        case 4:
-            return d[.bottom] + 10
-        default:
-            return d[VerticalAlignment.center]
-        }
-        
     }
     
 }

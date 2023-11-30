@@ -14,6 +14,8 @@
 		EF8CECFA2B18077500FD2464 /* SwiftUIAlignmentGuideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8CECF92B18077500FD2464 /* SwiftUIAlignmentGuideTests.swift */; };
 		EF8CED042B18077500FD2464 /* SwiftUIAlignmentGuideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8CED032B18077500FD2464 /* SwiftUIAlignmentGuideUITests.swift */; };
 		EF8CED062B18077500FD2464 /* SwiftUIAlignmentGuideUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8CED052B18077500FD2464 /* SwiftUIAlignmentGuideUITestsLaunchTests.swift */; };
+		EF8CED142B1808C200FD2464 /* BaiscAlignmentGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8CED132B1808C200FD2464 /* BaiscAlignmentGuideView.swift */; };
+		EF8CED172B1815B900FD2464 /* TestCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF8CED162B1815B900FD2464 /* TestCode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		EF8CECFF2B18077500FD2464 /* SwiftUIAlignmentGuideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftUIAlignmentGuideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF8CED032B18077500FD2464 /* SwiftUIAlignmentGuideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIAlignmentGuideUITests.swift; sourceTree = "<group>"; };
 		EF8CED052B18077500FD2464 /* SwiftUIAlignmentGuideUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIAlignmentGuideUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EF8CED132B1808C200FD2464 /* BaiscAlignmentGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaiscAlignmentGuideView.swift; sourceTree = "<group>"; };
+		EF8CED162B1815B900FD2464 /* TestCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,8 @@
 		EF8CECE72B18077300FD2464 /* SwiftUIAlignmentGuide */ = {
 			isa = PBXGroup;
 			children = (
+				EF8CED152B1815AB00FD2464 /* TestCode */,
+				EF8CED122B1808A300FD2464 /* Basic */,
 				EF8CECE82B18077300FD2464 /* SwiftUIAlignmentGuideApp.swift */,
 				EF8CECEA2B18077300FD2464 /* ContentView.swift */,
 				EF8CECEC2B18077400FD2464 /* Assets.xcassets */,
@@ -125,6 +131,22 @@
 				EF8CED052B18077500FD2464 /* SwiftUIAlignmentGuideUITestsLaunchTests.swift */,
 			);
 			path = SwiftUIAlignmentGuideUITests;
+			sourceTree = "<group>";
+		};
+		EF8CED122B1808A300FD2464 /* Basic */ = {
+			isa = PBXGroup;
+			children = (
+				EF8CED132B1808C200FD2464 /* BaiscAlignmentGuideView.swift */,
+			);
+			path = Basic;
+			sourceTree = "<group>";
+		};
+		EF8CED152B1815AB00FD2464 /* TestCode */ = {
+			isa = PBXGroup;
+			children = (
+				EF8CED162B1815B900FD2464 /* TestCode.swift */,
+			);
+			path = TestCode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,7 +279,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF8CED172B1815B900FD2464 /* TestCode.swift in Sources */,
 				EF8CECEB2B18077300FD2464 /* ContentView.swift in Sources */,
+				EF8CED142B1808C200FD2464 /* BaiscAlignmentGuideView.swift in Sources */,
 				EF8CECE92B18077300FD2464 /* SwiftUIAlignmentGuideApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
